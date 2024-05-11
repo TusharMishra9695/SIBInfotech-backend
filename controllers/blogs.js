@@ -4,6 +4,7 @@ async function handlePostBlog(req, res) {
     const data = new Blog(req.body);
     await data.save();
     res.status(201).send({
+      result: data,
       message: "Blog Posted Successfully",
       success: true,
     });
@@ -14,7 +15,7 @@ async function handlePostBlog(req, res) {
 
 async function handleGetBlog(req, res) {
   try {
-    const result = await Blog.find({ _id: req.query._id });
+    const result = await Blog.find(req.query);
     res.status(200).send({
       result: result,
       message: "Blog list fetched successfully",
